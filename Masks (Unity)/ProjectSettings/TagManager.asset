@@ -9,6 +9,8 @@ TagManager:
   - InputManager
   - Combine1
   - Combine2
+  - BlueW
+  - RedW
   layers:
   - Default
   - TransparentFX
