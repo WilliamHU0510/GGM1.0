@@ -87,6 +87,7 @@ void ChangeWeapon(int number)
     {
         // 查找所有BlueW标签的物体
         GameObject[] blueWArray = GameObject.FindGameObjectsWithTag("BlueW");
+        Debug.Log(blueWArray.Length + "111");
         blueWObjects.Clear();
         blueWObjects.AddRange(blueWArray);
         
@@ -102,16 +103,27 @@ void ChangeWeapon(int number)
         if (isState1)
         {
             // 状态1: 激活BlueW物体，禁用RedW物体
-            SetObjectsActive(blueWObjects, true);
-            SetObjectsActive(redWObjects, false);
+            SetSpriteAndCollider(blueWObjects, true);
+            SetSpriteAndCollider(redWObjects, false);
            // ChangeWeapon(1);
         }
         else
         {
             // 状态2: 激活RedW物体，禁用BlueW物体
-            SetObjectsActive(blueWObjects, false);
-            SetObjectsActive(redWObjects, true);
+            SetSpriteAndCollider(blueWObjects, false);
+            SetSpriteAndCollider(redWObjects, true);
             //ChangeWeapon(2);
+        }
+    }
+    public void SetSpriteAndCollider(List<GameObject> gameObjects, bool isOpen)
+    {
+        foreach(GameObject GO in gameObjects)
+        {
+            GO.GetComponent<SpriteRenderer>().enabled = isOpen;
+            if (GO.GetComponent<BoxCollider2D>() != null)
+            {
+                GO.GetComponent<BoxCollider2D>().enabled = isOpen;
+            }
         }
     }
     
@@ -126,7 +138,14 @@ void ChangeWeapon(int number)
             }
         }
     }
-    
+
+    void Update()
+    {
+        RefreshTaggedObjects();
+        //FindAllTaggedObjects();
+        //HandleStateChange(playerStateManager.IsState1);
+    }
+
     // 更新：如果需要动态刷新物体列表（例如场景中物体有变化）
     public void RefreshTaggedObjects()
     {
