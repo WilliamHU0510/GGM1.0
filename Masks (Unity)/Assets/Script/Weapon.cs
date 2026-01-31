@@ -46,7 +46,7 @@ public class Weapon : MonoBehaviour
     }
     Vector3 EnemyDirection()//敌人确定枪口方向
     {
-        GameObject character = GameObject.Find("Character");
+        GameObject character = GameObject.Find("player1");
         Vector3 characterPosition = character.transform.position;
         return (characterPosition - this.transform.position);
     }
@@ -137,11 +137,7 @@ public class Weapon : MonoBehaviour
                 weaponDirection.z = 0;
                 Face();//调整枪朝向
             }
-            bool shootable = ShootAble();//确定是否可射击
-            if (shootable)
-            {
-                Shoot();
-            }//射击
+            
             
         }
     }
