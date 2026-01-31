@@ -2,66 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equipment : MonoBehaviour
+public class EquipmentSimple : MonoBehaviour
 {
-    public GameObject weapon1;
-    public GameObject weapon2;
-    public GameObject weapon3;
-    public GameObject weapon4;
-    // Start is called before the first frame update
-    void ChangeWeapon(int number)
-    {
-        switch (number)
-        {
-            case 1:
-                weapon1.SetActive(true);
-                weapon2.SetActive(false);
-                weapon3.SetActive(false);
-                weapon4.SetActive(false);
-                break;
-            case 2:
-                weapon1.SetActive(false);
-                weapon2.SetActive(true);
-                weapon3.SetActive(false);
-                weapon4.SetActive(false);
-                break;
-            case 3:
-                weapon1.SetActive(false);
-                weapon2.SetActive(false);
-                weapon3.SetActive(true);
-                weapon4.SetActive(false);
-                break;
-            case 4:
-                weapon1.SetActive(false);
-                weapon2.SetActive(false);
-                weapon3.SetActive(false);
-                weapon4.SetActive(true);
-                break;
-        }
-    }
+    [Header("武器对象")]
+    public GameObject weapon1; // 状态1的武器
+    public GameObject weapon2; // 状态2的武器
+    
+    [Header("玩家状态管理器")]
+    public PlayerStateManager stateManager;
+    
     void Start()
     {
-        ChangeWeapon(1);
+        // 自动查找状态管理器
+        if (stateManager == null)
+        {
+            stateManager = FindObjectOfType<PlayerStateManager>();
+        }
+        
+        // 订阅状态变化事件
+        if (stateManager != null)
+        {
+            stateManager.OnStateChanged += OnPlayerStateChanged;
+            // 应用初始状态
+            OnPlayerStateChanged(stateManager.IsState1);
+        }
+        else
+        {
+            Debug.LogWarning("EquipmentSimple: 未找到PlayerStateManager！");
+            // 默认显示武器1
+            weapon1.SetActive(true);
+            weapon2.SetActive(false);
+        }
     }
     
-    // Update is called once per frame
-    void Update()
+    // 玩家状态变化时的处理
+    private void OnPlayerStateChanged(bool isState1)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (weapon1 == null || weapon2 == null)
         {
-            ChangeWeapon(1);
+            Debug.LogError("武器对象未分配！");
+            return;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        
+        weapon1.SetActive(isState1);
+        weapon2.SetActive(!isState1);
+        
+        Debug.Log($"切换到 {(isState1 ? "武器1" : "武器2")}");
+    }
+    
+    void OnDestroy()
+    {
+        // 取消订阅事件
+        if (stateManager != null)
         {
-            ChangeWeapon(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeWeapon(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeWeapon(4);
+            stateManager.OnStateChanged -= OnPlayerStateChanged;
         }
     }
 }

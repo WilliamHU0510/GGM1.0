@@ -12,11 +12,50 @@ public class TagBasedActivator : MonoBehaviour
     private List<GameObject> blueWObjects = new List<GameObject>();
     private List<GameObject> redWObjects = new List<GameObject>();
     
+    public GameObject weapon1;
+    public GameObject weapon2;
+    public GameObject weapon3;
+    public GameObject weapon4; 
+
     void Start()
     {
         Initialize();
+        //ChangeWeapon(1);
     }
     
+
+
+void ChangeWeapon(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                weapon1.SetActive(true);
+                weapon2.SetActive(false);
+                weapon3.SetActive(false);
+                weapon4.SetActive(false);
+                break;
+            case 2:
+                weapon1.SetActive(false);
+                weapon2.SetActive(true);
+                weapon3.SetActive(false);
+                weapon4.SetActive(false);
+                break;
+            case 3:
+                weapon1.SetActive(false);
+                weapon2.SetActive(false);
+                weapon3.SetActive(true);
+                weapon4.SetActive(false);
+                break;
+            case 4:
+                weapon1.SetActive(false);
+                weapon2.SetActive(false);
+                weapon3.SetActive(false);
+                weapon4.SetActive(true);
+                break;
+        }
+    }
+
     void Initialize()
     {
         // 尝试自动查找玩家状态管理器
@@ -65,12 +104,14 @@ public class TagBasedActivator : MonoBehaviour
             // 状态1: 激活BlueW物体，禁用RedW物体
             SetObjectsActive(blueWObjects, true);
             SetObjectsActive(redWObjects, false);
+           // ChangeWeapon(1);
         }
         else
         {
             // 状态2: 激活RedW物体，禁用BlueW物体
             SetObjectsActive(blueWObjects, false);
             SetObjectsActive(redWObjects, true);
+            //ChangeWeapon(2);
         }
     }
     

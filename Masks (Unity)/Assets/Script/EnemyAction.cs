@@ -50,7 +50,7 @@ public class EnemyAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        character = GameObject.Find("Character");
+        character = GameObject.Find("player1");
     }
 
     // Update is called once per frame
@@ -64,11 +64,11 @@ public class EnemyAction : MonoBehaviour
         {
             if (Direction().x < 0)//转身判定
             {
-                TurnOver(true);//左转
+               // TurnOver(true);//左转
             }
             else
             {
-                TurnOver(false);//右转
+                //TurnOver(false);//右转
             }
 
             if (shootCoolDown < 0)

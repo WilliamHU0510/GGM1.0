@@ -137,6 +137,11 @@ public class Weapon : MonoBehaviour
                 weaponDirection.z = 0;
                 Face();//调整枪朝向
             }
+            bool shootable = ShootAble();//确定是否可射击
+            if (shootable)
+            {
+                Shoot();
+            }//射击
             
         }
     }

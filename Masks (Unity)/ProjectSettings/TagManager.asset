@@ -11,6 +11,9 @@ TagManager:
   - Combine2
   - BlueW
   - RedW
+  - Weapon
+  - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -25,8 +28,8 @@ TagManager:
   - combine_1
   - combine_2
   - camera
-  - 
-  - 
+  - AIBlock
+  - Weapon
   - 
   - 
   - 
