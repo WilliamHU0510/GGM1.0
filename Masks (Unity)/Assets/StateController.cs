@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
+
 
 public class TagBasedActivator : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class TagBasedActivator : MonoBehaviour
     void Start()
     {
         Initialize();
-        //ChangeWeapon(1);
+         //ChangeWeapon(1);
     }
     
 

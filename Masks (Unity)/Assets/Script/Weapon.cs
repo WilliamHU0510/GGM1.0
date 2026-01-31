@@ -126,7 +126,7 @@ public class Weapon : MonoBehaviour
                 Reload();
             }//换子弹
             CoolDown();//减少CD
-            ShowingReloading();//显示换弹中
+            //ShowingReloading();//显示换弹中
         }
         else//敌人武器
         {
